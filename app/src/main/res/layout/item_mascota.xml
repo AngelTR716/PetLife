@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- CardView: Contenedor que crea una tarjeta con bordes redondeados y sombra (efecto 3D) -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,12 +9,14 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
+    <!-- LinearLayout: Ordena los textos de la tarjeta uno debajo del otro -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- TextView principal: Mostrará el nombre de la mascota en texto grande y en negrita -->
         <TextView
             android:id="@+id/tvNombreMascota"
             android:layout_width="match_parent"
@@ -23,6 +26,7 @@
             android:textStyle="bold"
             android:textColor="#333333"/>
 
+        <!-- TextView secundario: Mostrará la especie y raza en texto más pequeño y gris -->
         <TextView
             android:id="@+id/tvEspecieRaza"
             android:layout_width="match_parent"
