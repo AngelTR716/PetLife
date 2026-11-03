@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- navigation: Es el contenedor principal que administra todas tus pantallas -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listaMascotasFragment">
+    <!-- startDestination indica que la Lista de Mascotas será la primera pantalla en abrirse -->
+
+    <!-- Pantalla 1: Lista de Mascotas -->
+    <fragment
+        android:id="@+id/listaMascotasFragment"
+        android:name="com.example.petlife.ui.ListaMascotasFragment"
+        android:label="Mis Mascotas"
+        tools:layout="@layout/fragment_lista_mascotas">
+
+        <!-- action: Es la "flecha" o ruta que nos lleva a la pantalla de registro -->
+        <action
+            android:id="@+id/action_listaMascotasFragment_to_registroMascotaFragment"
+            app:destination="@id/registroMascotaFragment" />
+    </fragment>
+
+    <!-- Pantalla 2: Registro de Mascotas -->
+    <fragment
+        android:id="@+id/registroMascotaFragment"
+        android:name="com.example.petlife.ui.RegistroMascotaFragment"
+        android:label="Registrar Mascota"
+        tools:layout="@layout/fragment_registro_mascota" />
+
+</navigation>
