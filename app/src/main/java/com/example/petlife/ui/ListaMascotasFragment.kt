@@ -12,6 +12,8 @@ import com.example.petlife.R
 import com.example.petlife.data.PetLifeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
+import androidx.navigation.fragment.findNavController
+
 
 class ListaMascotasFragment : Fragment() {
 
@@ -32,10 +34,11 @@ class ListaMascotasFragment : Fragment() {
         adaptador = MascotaAdapter(emptyList())
         rvMascotas.adapter = adaptador
 
-        // 3. Configura el botón flotante (su acción la programaremos en el siguiente paso de navegación)
+        // 3. Configura el botón flotante
         val fabAgregar = view.findViewById<FloatingActionButton>(R.id.fabAgregarMascota)
         fabAgregar.setOnClickListener {
-            // Aquí irá el código para cambiar a la pantalla de RegistroMascotaFragment
+            // Activa la "flecha" del nav_graph para viajar a la pantalla de registro
+            findNavController().navigate(R.id.action_listaMascotasFragment_to_registroMascotaFragment)
         }
 
         // 4. Extrae los datos de Room
