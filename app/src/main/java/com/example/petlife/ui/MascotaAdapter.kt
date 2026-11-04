@@ -42,4 +42,3 @@ class MascotaAdapter(private var listaMascotas: List<Mascota>) : RecyclerView.Ad
         notifyDataSetChanged() // Refresca la pantalla visualmente
     }
 }
-}

@@ -1,68 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Contenedor principal que organiza los elementos de arriba hacia abajo -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- ScrollView: Permite deslizar la pantalla hacia abajo si el teclado tapa los botones -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="16dp">
 
-    <!-- Título de la pantalla -->
-    <TextView
+    <!-- LinearLayout: Apila los campos de texto uno debajo de otro de forma vertical -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registro de Mascota"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        android:orientation="vertical">
 
-    <!-- Campos de entrada de datos (texto, números enteros y decimales) -->
-    <EditText
-        android:id="@+id/etNombre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de la mascota"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="12dp"/>
+        <!-- EditText: Campos donde el usuario escribirá los datos de la mascota -->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre de la mascota" />
 
-    <EditText
-        android:id="@+id/etEspecie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Especie (ej. Perro, Gato)"
-        android:inputType="text"
-        android:layout_marginBottom="12dp"/>
+        <EditText
+            android:id="@+id/etEspecie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Especie (Ej. Perro, Gato)"
+            android:layout_marginTop="8dp" />
 
-    <EditText
-        android:id="@+id/etRaza"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Raza"
-        android:inputType="text"
-        android:layout_marginBottom="12dp"/>
+        <EditText
+            android:id="@+id/etRaza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Raza"
+            android:layout_marginTop="8dp" />
 
-    <EditText
-        android:id="@+id/etEdad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Edad (años)"
-        android:inputType="number"
-        android:layout_marginBottom="12dp"/>
+        <EditText
+            android:id="@+id/etEdad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edad (años)"
+            android:inputType="number"
+            android:layout_marginTop="8dp" />
 
-    <EditText
-        android:id="@+id/etPeso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Peso actual (kg)"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="24dp"/>
+        <EditText
+            android:id="@+id/etPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso actual (kg)"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp" />
 
-    <!-- Botón para ejecutar el guardado en la base de datos -->
-    <Button
-        android:id="@+id/btnGuardarMascota"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar Mascota"
-        android:backgroundTint="#4CAF50"/>
-
-</LinearLayout>
+        <!-- Button: Botón para guardar los datos en la base de datos -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Mascota"
+            android:layout_marginTop="24dp" />
+    </LinearLayout>
+</ScrollView>

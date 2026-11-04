@@ -1,14 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.example.petlife"
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 37 // Ajustado al estándar para evitar errores de versión
 
     defaultConfig {
         applicationId = "com.example.petlife"
@@ -22,14 +20,17 @@ android {
 
     buildTypes {
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = false
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
@@ -42,16 +43,17 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-    // Room (Base de datos local)
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    add("kapt", "androidx.room:room-compiler:$room_version")
 
-// Google Play Services (Ubicación)
+    // Room (Base de datos local)
+    val room_version = "2.8.5"
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version") // Agregado para soportar corrutinas
+    ksp("androidx.room:room-compiler:$room_version")
+
+    // Google Play Services (Ubicación)
     implementation("com.google.android.gms:play-services-location:21.2.0")
 
-// Navegación
+    // Navegación
     val nav_version = "2.7.7"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
