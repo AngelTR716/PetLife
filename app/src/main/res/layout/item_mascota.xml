@@ -1,40 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- CardView: Contenedor que crea una tarjeta con bordes redondeados y sombra (efecto 3D) -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
+    android:layout_marginHorizontal="20dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
 
-    <!-- LinearLayout: Ordena los textos de la tarjeta uno debajo del otro -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <!-- TextView principal: Mostrará el nombre de la mascota en texto grande y en negrita -->
-        <TextView
-            android:id="@+id/tvNombreMascota"
-            android:layout_width="match_parent"
+        <!-- Círculo decorativo con una huella -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="#D1FAE5"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="🐾"
+                android:gravity="center"
+                android:textSize="22sp"/>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Nombre de la Mascota"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
 
-        <!-- TextView secundario: Mostrará la especie y raza en texto más pequeño y gris -->
-        <TextView
-            android:id="@+id/tvEspecieRaza"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Especie - Raza"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/tvNombreMascota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#111827"/>
 
+            <TextView
+                android:id="@+id/tvEspecieRaza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Especie - Raza"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

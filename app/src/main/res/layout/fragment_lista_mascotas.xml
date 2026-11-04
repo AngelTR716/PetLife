@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ConstraintLayout: Contenedor principal que permite anclar elementos a los bordes de la pantalla -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"> <!-- Fondo gris claro para que resalten las tarjetas blancas -->
+    android:background="#F4F6F8"
+    android:fitsSystemWindows="true">
 
-    <!-- RecyclerView: Lista dinámica que reutiliza la memoria. Aquí se inyectarán las tarjetas (item_mascota) -->
+    <TextView
+        android:id="@+id/tvTituloApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mis Mascotas"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#1F2937"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMascotas"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="8dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="88dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloApp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- FloatingActionButton: Botón circular flotante anclado en la esquina inferior derecha para agregar nuevas mascotas -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAgregarMascota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:src="@android:drawable/ic_input_add"
-        app:tint="@android:color/white"
-        app:backgroundTint="#4CAF50"
+        app:tint="#FFFFFF"
+        app:backgroundTint="#10B981"
+        app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
