@@ -14,4 +14,8 @@ interface MascotaDao {
 
     @Query("SELECT * FROM mascotas")
     suspend fun obtenerTodasLasMascotas(): List<Mascota>
+
+    // Busca una mascota específica por su ID en la base de datos local
+    @Query("SELECT * FROM tabla_mascota WHERE id = :id")
+    suspend fun obtenerMascotaPorId(id: Int): Mascota
 }

@@ -29,6 +29,17 @@ class MascotaAdapter(private var listaMascotas: List<Mascota>) : RecyclerView.Ad
         holder.tvNombre.text = mascota.nombre
         // Concatenamos especie y raza separadas por un guion
         holder.tvEspecieRaza.text = "${mascota.especie} - ${mascota.raza}"
+
+        // --- ESTE ES EL NUEVO CÓDIGO DEL CLIC ---
+        // holder.itemView representa la tarjeta completa
+        holder.itemView.setOnClickListener { view ->
+            val bundle = android.os.Bundle().apply {
+                putInt("mascotaId", mascota.id) // Guarda el ID de la mascota tocada
+            }
+            // Navega a la pantalla de perfil llevando el ID
+            androidx.navigation.Navigation.findNavController(view)
+                .navigate(R.id.perfilMascotaFragment, bundle)
+        }
     }
 
     // 4. Le dice al sistema cuántos elementos hay en total en la lista
