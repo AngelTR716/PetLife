@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_listaMascotasFragment_to_registroMascotaFragment"
             app:destination="@id/registroMascotaFragment" />
+
+        <action
+            android:id="@+id/action_listaMascotasFragment_to_perfilMascotaFragment"
+            app:destination="@id/perfilMascotaFragment" />
     </fragment>
 
     <!-- Pantalla 2: Registro de Mascotas -->
@@ -26,5 +30,18 @@
         android:name="com.example.petlife.ui.RegistroMascotaFragment"
         android:label="Registrar Mascota"
         tools:layout="@layout/fragment_registro_mascota" />
+
+    <!-- Pantalla 3: Perfil de Mascota -->
+    <fragment
+        android:id="@+id/perfilMascotaFragment"
+        android:name="com.example.petlife.ui.PerfilMascotaFragment"
+        android:label="Perfil de Mascota"
+        tools:layout="@layout/fragment_perfil_mascota">
+
+        <argument
+            android:name="mascotaId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
 </navigation>

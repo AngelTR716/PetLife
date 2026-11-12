@@ -19,22 +19,27 @@ class PerfilMascotaFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_perfil_mascota, container, false)
 
-        // 1. Atrapa el ID que envía la tarjeta desde la pantalla principal
         val mascotaId = arguments?.getInt("mascotaId") ?: return view
 
-        // 2. Conecta las variables con los textos del diseño XML
-        val tvNombre = view.findViewById<TextView>(R.id.tvPerfilNombre)
-        val tvDetalles = view.findViewById<TextView>(R.id.tvPerfilDetalles)
+        // Conectar las nuevas variables del Carnet
+        val tvId = view.findViewById<TextView>(R.id.tvCarnetId)
+        val tvNombre = view.findViewById<TextView>(R.id.tvCarnetNombre)
+        val tvEspecie = view.findViewById<TextView>(R.id.tvCarnetEspecie)
+        val tvRaza = view.findViewById<TextView>(R.id.tvCarnetRaza)
+        val tvEdad = view.findViewById<TextView>(R.id.tvCarnetEdad)
+        val tvPeso = view.findViewById<TextView>(R.id.tvCarnetPeso)
 
-        // 3. Ejecuta una consulta a Room en segundo plano (Corrutina)
         lifecycleScope.launch {
             val db = PetLifeDatabase.getDatabase(requireContext())
             val mascota = db.mascotaDao().obtenerMascotaPorId(mascotaId)
 
-            // 4. Si encuentra la mascota, llena el encabezado con sus datos reales
             if (mascota != null) {
+                tvId.text = "ID. ${mascota.id.toString().padStart(4, '0')}"
                 tvNombre.text = mascota.nombre
-                tvDetalles.text = "${mascota.especie} - ${mascota.raza} | ${mascota.edad} años | ${mascota.pesoActual} kg"
+                tvEspecie.text = mascota.especie.uppercase()
+                tvRaza.text = mascota.raza.uppercase()
+                tvEdad.text = "${mascota.edad} años"
+                tvPeso.text = "${mascota.pesoActual} kg"
             }
         }
 

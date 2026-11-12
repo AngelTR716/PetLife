@@ -30,7 +30,6 @@ class MascotaAdapter(private var listaMascotas: List<Mascota>) : RecyclerView.Ad
         // Concatenamos especie y raza separadas por un guion
         holder.tvEspecieRaza.text = "${mascota.especie} - ${mascota.raza}"
 
-        // --- ESTE ES EL NUEVO CÓDIGO DEL CLIC ---
         // holder.itemView representa la tarjeta completa
         holder.itemView.setOnClickListener { view ->
             val bundle = android.os.Bundle().apply {
@@ -38,7 +37,7 @@ class MascotaAdapter(private var listaMascotas: List<Mascota>) : RecyclerView.Ad
             }
             // Navega a la pantalla de perfil llevando el ID
             androidx.navigation.Navigation.findNavController(view)
-                .navigate(R.id.perfilMascotaFragment, bundle)
+                .navigate(R.id.action_listaMascotasFragment_to_perfilMascotaFragment, bundle)
         }
     }
 
