@@ -1,21 +1,50 @@
 package com.example.petlife.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MascotaDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertarMascota(mascota: Mascota)
+    // --- CARNET / MASCOTA ---
+    @Query("SELECT * FROM mascota_table LIMIT 1")
+    fun obtenerMascota(): Flow<Mascota?>
 
-    // Aquí faltaba la "s" en tu código original
-    @Query("SELECT * FROM mascotas")
-    suspend fun obtenerTodasLasMascotas(): List<Mascota>
+    @Insert
+    suspend fun insertarMascota(mascota: Mascota): Long
 
-    // La nueva función que acabamos de agregar
-    @Query("SELECT * FROM mascotas WHERE id = :id")
-    suspend fun obtenerMascotaPorId(id: Int): Mascota
+    @Update
+    suspend fun actualizarMascota(mascota: Mascota)
+
+    @Delete
+    suspend fun eliminarMascota(mascota: Mascota)
+
+
+    // --- VACUNAS OBLIGATORIAS (Checklist + GPS) ---
+    @Query("SELECT * FROM vacunas_obligatorias_table WHERE mascotaId = :mascotaId")
+    fun obtenerVacunasPorMascota(mascotaId: Long): Flow<List<VacunaObligatoria>>
+
+    @Insert
+    suspend fun insertarVacuna(vacuna: VacunaObligatoria)
+
+    @Update
+    suspend fun actualizarVacuna(vacuna: VacunaObligatoria)
+
+
+    // --- HISTORIAL DE CONSULTAS (Modificar, eliminar y GPS) ---
+    @Query("SELECT * FROM historial_consultas_table WHERE mascotaId = :mascotaId ORDER BY id DESC")
+    fun obtenerConsultasPorMascota(mascotaId: Long): Flow<List<Consulta>>
+
+    @Insert
+    suspend fun insertarConsulta(consulta: Consulta)
+
+    @Update
+    suspend fun actualizarConsulta(consulta: Consulta)
+
+    @Delete
+    suspend fun eliminarConsulta(consulta: Consulta)
 }
