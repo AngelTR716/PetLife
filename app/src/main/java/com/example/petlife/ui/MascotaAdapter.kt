@@ -33,7 +33,7 @@ class MascotaAdapter(private var listaMascotas: List<Mascota>) : RecyclerView.Ad
         // holder.itemView representa la tarjeta completa
         holder.itemView.setOnClickListener { view ->
             val bundle = android.os.Bundle().apply {
-                putInt("mascotaId", mascota.id) // Guarda el ID de la mascota tocada
+                putLong("mascotaId", mascota.id) // Guarda el ID de la mascota tocada como Long para coincidir con nav_graph.xml
             }
             // Navega a la pantalla de perfil llevando el ID
             androidx.navigation.Navigation.findNavController(view)

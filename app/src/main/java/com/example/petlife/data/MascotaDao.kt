@@ -14,6 +14,12 @@ interface MascotaDao {
     @Query("SELECT * FROM mascota_table LIMIT 1")
     fun obtenerMascota(): Flow<Mascota?>
 
+    @Query("SELECT * FROM mascota_table")
+    suspend fun obtenerTodasLasMascotas(): List<Mascota>
+
+    @Query("SELECT * FROM mascota_table WHERE id = :id")
+    fun obtenerMascotaPorId(id: Long): Flow<Mascota?>
+
     @Insert
     suspend fun insertarMascota(mascota: Mascota): Long
 

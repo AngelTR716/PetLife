@@ -2,14 +2,18 @@ package com.example.petlife.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.petlife.data.Consulta
 import com.example.petlife.data.Mascota
 import com.example.petlife.data.PetLifeDatabase
 import com.example.petlife.data.VacunaObligatoria
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 // ==========================================
@@ -18,10 +22,47 @@ import kotlinx.coroutines.launch
 // ==========================================
 data class UbicacionGps(val titulo: String, val lat: Double, val lng: Double)
 
-class MascotaViewModel(application: Application) : AndroidViewModel(application) {
+class MascotaViewModel(application: Application, savedStateHandle: SavedStateHandle) : AndroidViewModel(application) {
 
     // Conexión directa a tu base de datos usando DAO
     private val dao = PetLifeDatabase.getDatabase(application).mascotaDao()
+    private val mascotaId: Long = savedStateHandle.get<Long>("mascotaId") ?: -1L
+
+    val mascotaActual: StateFlow<Mascota?> = dao.obtenerMascotaPorId(mascotaId).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null
+    )
+
+    val vacunas: StateFlow<List<VacunaObligatoria>> = dao.obtenerVacunasPorMascota(mascotaId).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+
+    val consultas: StateFlow<List<Consulta>> = dao.obtenerConsultasPorMascota(mascotaId).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+
+    fun obtenerVacunas(mascotaId: Long): Flow<List<VacunaObligatoria>> = dao.obtenerVacunasPorMascota(mascotaId)
+
+    fun obtenerConsultas(mascotaId: Long): Flow<List<Consulta>> = dao.obtenerConsultasPorMascota(mascotaId)
+
+    fun marcarVacuna(vacuna: VacunaObligatoria, aplicada: Boolean, lat: Double, lng: Double) {
+        viewModelScope.launch {
+            val vacunaActualizada = vacuna.copy(
+                aplicada = aplicada,
+                latitudAplicacion = if (aplicada) lat else null,
+                longitudAplicacion = if (aplicada) lng else null
+            )
+            dao.actualizarVacuna(vacunaActualizada)
+            if (aplicada) {
+                actualizarUbicacionGps("Vacuna: ${vacuna.nombreVacuna}", lat, lng)
+            }
+        }
+    }
 
     // ==========================================
     // B. CONTROL DEL MÓDULO "REVISIÓN GPS"
@@ -66,9 +107,10 @@ class MascotaViewModel(application: Application) : AndroidViewModel(application)
     fun inicializarVacunasObligatorias(mascotaId: Long) {
         viewModelScope.launch {
             val listaGeneral = listOf(
-                "Vacuna Obligatoria (Ej. Rabia)",
-                "Vacuna Múltiple / Específica",
-                "Refuerzo Anual",
+                "Vacuna Antirrábica (Rabia)",
+                "Vacuna Múltiple (Quíntuple / Séxtuple)",
+                "Vacuna Parvovirus / Coronavirus",
+                "Vacuna Tos de las Perreras (Traqueobronquitis)",
                 "Desparasitación Interna",
                 "Desparasitación Externa"
             )
@@ -99,5 +141,9 @@ class MascotaViewModel(application: Application) : AndroidViewModel(application)
 
     fun borrarConsulta(consulta: Consulta) = viewModelScope.launch {
         dao.eliminarConsulta(consulta)
+    }
+
+    fun eliminarMascota(mascota: Mascota) = viewModelScope.launch {
+        dao.eliminarMascota(mascota)
     }
 }

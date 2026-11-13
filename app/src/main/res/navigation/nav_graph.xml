@@ -40,8 +40,8 @@
 
         <argument
             android:name="mascotaId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
 
 </navigation>

@@ -34,11 +34,11 @@ class RegistroMascotaFragment : Fragment() {
             val nombre = etNombre.text.toString()
             val especie = etEspecie.text.toString()
             val raza = etRaza.text.toString()
-            val edad = etEdad.text.toString().toIntOrNull() ?: 0
-            val peso = etPeso.text.toString().toDoubleOrNull() ?: 0.0
+            val edad = etEdad.text.toString()
+            val peso = etPeso.text.toString()
 
             if (nombre.isNotEmpty()) {
-                val nuevaMascota = Mascota(nombre = nombre, especie = especie, raza = raza, edad = edad, pesoActual = peso)
+                val nuevaMascota = Mascota(nombre = nombre, especie = especie, raza = raza, edad = edad, peso = peso)
                 guardarMascota(nuevaMascota)
             } else {
                 Toast.makeText(requireContext(), "El nombre es obligatorio", Toast.LENGTH_SHORT).show()
